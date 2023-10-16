@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block meta %}
+    <meta name="description"
+          content="Oops! It seems there was an issue processing your payment. Please check your payment details and try again. If you continue to experience problems, contact our support team for assistance. We apologize for any inconvenience.">
+{% endblock meta %}
+{% block title %}
+    Payment Error!
+{% endblock title %}
+{% block content %}
+    {% include "free_pages/includes/header.html" with page_title="There was a problem with your payment" %}
+    <h2>{{ error_message }}</h2>
+{% endblock content %}

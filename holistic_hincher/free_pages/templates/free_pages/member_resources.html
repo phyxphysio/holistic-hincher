@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block meta %}
+  <meta name="description"
+        content="Unlock a wealth of knowledge with Holistic Hincher's exclusive member resources. Explore main content categories designed to elevate your business, including strategy insights, industry trends, leadership development, and more. Empower your journey to business success today.">
+{% endblock meta %}
+{% block title %}
+  Member Resources
+{% endblock title %}
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'home.css' %}">
+{% endblock css_files %}
+{% block content %}
+  {% include 'free_pages/includes/header.html' with page_title='Member Resources' page_description='Exclusive content for your business' %}
+  <div class="container-fluid bg-green">
+    <div class="row align-items-center justify-content-center">
+      {% for category in main_categories %}
+        <div class="col-md-6 p-5 text-center">
+          <div class="card bg-darkgreen text-light mx-auto" style="width: 18rem">
+            {% if category.posts.all.0.image %}
+              <img src="{{ category.posts.all.0.image.url }}"
+                   class="card-img-top p-2 rounded-4"
+                   height="200px"
+                   width="250px"
+                   alt="{{ category.posts.all.0.image_description }}">
+            {% endif %}
+            <div class="card-body">
+              <h1 class="card-title">{{ category.name }}</h1>
+              <p class="card-text lead">{{ category.description }}</p>
+            </div>
+            <div class="btn-group p-4">
+              <a href="{% url "subcategories" category.slug %}">
+                <button type="button" class="btn bg-green text-light">Explore Categories</button>
+              </a>
+              <button type="button"
+                      class="btn bg-green text-light dropdown-toggle dropdown-toggle-split"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                <span class="visually-hidden">Toggle Dropdown</span>
+              </button>
+              <ul class="dropdown-menu">
+                {% for subcategory in category.subcategories.all %}
+                  <li>
+                    <a class="dropdown-item"
+                       href="{% url 'posts' category_slug=category.slug subcategory_slug=subcategory.slug %}">{{ subcategory.name }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock content %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block meta %}
+  <meta name="description"
+        content="Congratulations! Your payment was successfully processed. Thank you for choosing our services. Enjoy the benefits of your purchase and continue your journey with us.">
+{% endblock meta %}
+{% block title %}
+  Payment Success!
+{% endblock title %}
+{% block content %}
+  {% include "free_pages/includes/header.html" with page_title="Payment Success" %}
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-md-6 text-center">
+        <a href="{% url 'member_resources' %}"
+           class="btn btn-success my-2"
+           style="background-color: #87A37F">See Member Resources</a>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

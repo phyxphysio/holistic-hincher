@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block meta %}
+  <meta name="description"
+        content="You have been successfully logged out. Thank you for using our services. If you'd like to access your account again, simply log in. Explore our offerings and features as a registered user.">
+{% endblock meta %}
+{% block page_title %}
+  Logged Out
+{% endblock page_title %}
+{% block content %}
+  <div class="container">
+    <h2>You've been successfully logged out</h2>
+    <p>Thank you for using our website. You are now logged out.</p>
+    <p>
+      <a href="{% url 'login' %}">Log In Again</a>
+    </p>
+  </div>
+{% endblock %}
