@@ -1,8 +1,8 @@
 from playwright.sync_api import Page, expect
 
 
-def test_give_feedback(page: Page) -> None:
-    page.goto("http://127.0.0.1:8000/")
+def test_give_feedback(page: Page, domain) -> None:
+    page.goto(domain)
     page.get_by_role("link", name="Feedback").click()
     page.get_by_label("Name:").click()
     page.get_by_label("Name:").fill("test")
@@ -18,6 +18,6 @@ def test_give_feedback(page: Page) -> None:
     page.get_by_label("Is there anything else you would like to share about your experience with our cleaning service?").fill("Great lean ")
     page.get_by_label("Please provide your contact information if you would like us to follow up with you regarding your feedback:").click()
     page.get_by_label("Please provide your contact information if you would like us to follow up with you regarding your feedback:").fill("Great clean ")
-    page.goto("http://127.0.0.1:8000/success")
+    page.goto(f"{domain}/success")
     page.context.close()
 

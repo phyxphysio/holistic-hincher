@@ -6,6 +6,16 @@ from free_pages.models import CustomUser, MainCategory, SubCategory, Post
 
 
 # Create fixtures
+
+@pytest.fixture
+def delete_test_user():
+    try:
+        test_member = CustomUser.objects.get(username="test_member")
+        test_member.delete()
+        print("test_member deleted")
+    except CustomUser.DoesNotExist: 
+        print ("No test_member yet.")
+    return 
 @pytest.fixture
 def domain():
     return settings.DOMAIN

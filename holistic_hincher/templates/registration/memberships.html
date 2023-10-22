@@ -15,12 +15,12 @@
   {% include "free_pages/includes/header.html" with page_title="Memberships" page_description="Choose a plan to improve your business" %}
   <div class="container-fluid bg-green">
     {% if user.is_member %}
-    <div class="row p-4 justify-content-center">
-      <div class="col text-center mx-auto">
-        <a href="{% url "customer_portal" %}"
-           class="btn bg-darkgreen text-light">Change Membership</a>
+      <div class="row p-4 justify-content-center">
+        <div class="col text-center mx-auto">
+          <a href="{% url "customer_portal" %}"
+             class="btn bg-darkgreen text-light">Change Membership</a>
+        </div>
       </div>
-    </div>
     {% endif %}
     <div class="row p-4 justify-content-center">
       {% for membership in memberships %}
@@ -48,12 +48,12 @@
                       {{ price.recurring.interval }}
                     </p>
                   {% endif %}
+                  {% if not user.is_member %}
+                    <a href="{% url 'payment' price=membership.default_price %}"
+                       class="btn btn-success">Subscribe</a>
+                  {% endif %}
                 {% endif %}
               {% endfor %}
-              {% if not user.is_member %}
-                <a href="{% url 'payment' price=membership.default_price %}"
-                   class="btn btn-success">Subscribe</a>
-              {% endif %}
             </div>
           </div>
         </div>

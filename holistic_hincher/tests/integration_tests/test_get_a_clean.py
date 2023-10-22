@@ -1,8 +1,8 @@
 from playwright.sync_api import Page, expect
 
 
-def test_get_clean(page: Page) -> None:
-    page.goto("http://127.0.0.1:8000/")
+def test_get_clean(page: Page, domain) -> None:
+    page.goto(domain)
     page.get_by_role("button", name="Get a clean").click()
     page.get_by_label("First name:").click()
     page.get_by_label("First name:").fill("test")

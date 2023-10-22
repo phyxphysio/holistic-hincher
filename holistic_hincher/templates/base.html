@@ -14,6 +14,7 @@
           rel="stylesheet"
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
           crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'home.css' %}">
     {% block css_files %}
     {% endblock css_files %}
   </head>
@@ -52,7 +53,8 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url "about" %}">About Us</a>
             </li>
-            {% if user.is_authenticated %}
+          </ul>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">            {% if user.is_authenticated %}
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle"
                    href="#"
@@ -79,25 +81,31 @@
                   </li>
                 </ul>
               {% else %}
-                <a href="{% url 'login' %}" class="btn btn-secondary bg-darkgreen my-2">Log In</a>
+                <a href="{% url 'login' %}" class="btn btn-secondary bg-darkgreen my-2 text-light">Log In</a>
               </li>
             {% endif %}
+            {% if user.is_superuser %}
+              <li>
+                <a href="{% url 'admin:index' %}" class="btn btn-primary mx-2 my-2">Edit Content</a>
+              </li>
+            {% endif %}
+            {% if not user.is_member %}
+              <li>
+                <a href="{% url 'memberships' %}"
+                   class="btn btn-success mx-2 my-2"
+                   style="background-color: #87A37F">Become a Member</a>
+              </li>
+            {% endif %}
+            <li>
+              <a class="nav-link mx-3"
+                 href="https://www.instagram.com/holisticaussiehincher/">
+                <img src="{% static 'instagram.png' %}"
+                     alt="instagram link"
+                     width="50"
+                     height="50">
+              </a>
+            </li>
           </ul>
-          {% if user.is_superuser %}
-            <a href="{% url 'admin:index' %}" class="btn btn-primary mx-2 my-2">Edit Content</a>
-          {% endif %}
-          {% if not user.is_member %}
-            <a href="{% url 'memberships' %}"
-               class="btn btn-success mx-2 my-2"
-               style="background-color: #87A37F">Become a Member</a>
-          {% endif %}
-          <a class="nav-link mx-3"
-             href="https://www.instagram.com/holisticaussiehincher/">
-            <img src="{% static 'instagram.png' %}"
-                 alt="instagram link"
-                 width="50"
-                 height="50">
-          </a>
         </div>
       </div>
     </nav>
