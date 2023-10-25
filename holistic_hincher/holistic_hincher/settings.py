@@ -40,6 +40,16 @@ STRIPE_WEBHOOK_SECRET = os.getenv('STRIPE_WEBHOOK_SECRET')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEVELOPMENT')
 
+DB_BACKEND = os.getenv('DB_BACKEND')
+DB_NAME = os.getenv('DB_NAME')
+DB_USER = os.getenv('DB_USER','')
+DB_PASSWORD = os.getenv('DB_PASSWORD','')
+DB_HOST = os.getenv('DB_HOST','')
+DB_PORT = os.getenv('DB_PORTS','')
+
+
+
+
 ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1"]
 
 # Application definition
@@ -95,8 +105,12 @@ WSGI_APPLICATION = "holistic_hincher.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": f"django.db.backends.{DB_BACKEND}",
+        "NAME": DB_NAME,
+        "USER": DB_USER,
+        "PASSWORD": DB_PASSWORD,
+        "HOST": DB_HOST,
+        "PORTS": DB_PORT
     }
 }
 

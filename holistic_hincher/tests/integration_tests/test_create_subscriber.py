@@ -21,5 +21,7 @@ def test_create_subscriber(page: Page, domain) -> None:
     page.get_by_test_id("hosted-payment-submit-button").click()
     page.get_by_placeholder("CVC").click()
     page.get_by_placeholder("CVC").fill("200")
-    page.get_by_test_id("hosted-payment-submit-button").click()    
+    page.get_by_test_id("hosted-payment-submit-button").click()
+    page.get_by_text("See Member Resources").click()    
+
     page.close()
