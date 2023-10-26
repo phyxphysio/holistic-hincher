@@ -1,0 +1,18 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /code
+    ports:
+      - "8000:8000"
+    command: ["python", "holistic_hincher/manage.py", "runserver", "0.0.0.0:8000"]
+
+  pytest:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /code
+    command: ["pytest"]
+    volumes:
+      - .:/code
