@@ -105,7 +105,7 @@ WSGI_APPLICATION = "holistic_hincher.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": f"django.db.backends.{DB_BACKEND}",
+        "ENGINE": DB_BACKEND,
         "NAME": DB_NAME,
         "USER": DB_USER,
         "PASSWORD": DB_PASSWORD,
