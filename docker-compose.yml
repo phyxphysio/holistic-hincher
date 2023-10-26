@@ -12,7 +12,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    working_dir: /code/holistic_hincher
+    working_dir: /code
     command: ["pytest"]
     volumes:
       - .:/code
