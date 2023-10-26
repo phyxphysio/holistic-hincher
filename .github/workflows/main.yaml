@@ -1,31 +1,66 @@
 #GitHub Actions Workflow
-
-name: ci
+name: CI
 
 on:
   push:
     branches:
       - "staging"
+
 jobs:
-  push_to_registry:
-    name: Push Docker image to Docker Hub
+  run_tests:
+    name: Run Tests
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v4
-      
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Compose
+        run: docker-compose -f docker-compose.yml up -d
+
+      - name: Run Tests with Docker Compose
+        run: docker-compose -f docker-compose.yml run pytest
+        env:
+            SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+            DOMAIN: ${{ secrets.TEST_DOMAIN }}
+            DJANGO_ADMIN_USERNAME: ${{ secrets.DJANGO_ADMIN_USERNAME }}
+            DJANGO_ADMIN_PASSWORD: ${{ secrets.DJANGO_ADMIN_PASSWORD }}
+            EMAIL_HOST: ${{ secrets.TEST_EMAIL_HOST }}
+            EMAIL_PORT: ${{ secrets.EMAIL_PORT }}
+            EMAIL_HOST_USER: ${{ secrets.TEST_EMAIL_HOST_USER }}
+            EMAIL_HOST_PASSWORD: ${{ secrets.TEST_EMAIL_HOST_PASSWORD }}
+            STRIPE_PUBLIC_KEY: ${{ secrets.TEST_STRIPE_PUBLIC_KEY }}
+            STRIPE_SECRET_KEY: ${{ secrets.TEST_STRIPE_SECRET_KEY }}
+            STRIPE_WEBHOOK_SECRET: ${{ secrets.TEST_STRIPE_WEBHOOK_SECRET }}
+            DEVELOPMENT: ${{ secrets.DEVELOPMENT }}
+            PRODUCTION: ${{ secrets.PRODUCTION }}
+            DB_BACKEND: ${{ secrets.DB_BACKEND }}
+            DB_NAME: ${{ secrets.DB_NAME }}
+            DB_USER: ${{ secrets.TEST_DB_USER }}
+            DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
+            DB_HOST: ${{ secrets.TEST_DB_HOST }}
+            DB_PORT: ${{ secrets.TEST_DB_PORT }}
+          
+      - name: Clean up Docker Compose
+        run: docker-compose -f docker-compose.yml down
+
+  push_to_registry:
+    name: Push Docker image to Docker Hub
+    needs: run_tests
+    runs-on: ubuntu-latest
+    if: success() && github.ref == 'refs/heads/staging'  # Only push if tests passed and on staging branch
+    steps:
       - name: Log in to Docker Hub
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
           images: lm907/holistic_hincher
-      
+
       - name: Build and push Docker image
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
@@ -34,6 +69,7 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
 
         env:
             SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
@@ -55,5 +91,5 @@ jobs:
             DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
             DB_HOST: ${{ secrets.TEST_DB_HOST }}
             DB_PORT: ${{ secrets.TEST_DB_PORT }}
+            
         
-  
