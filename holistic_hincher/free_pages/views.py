@@ -41,26 +41,26 @@ class ChangePasswordView(PasswordChangeView):
 
 @login_required
 def create_checkout_session(request, price):
-    try:
-        checkout_session = stripe.checkout.Session.create(
-            line_items=[
-                {
-                    "price": price,
-                    "quantity": 1,
-                },
-            ],
-            mode="subscription",
-            success_url=DOMAIN + "payment-success/",
-            cancel_url=DOMAIN + "payment-cancelled/",
-            client_reference_id=request.user.id,
-        )
+    # try:
+    checkout_session = stripe.checkout.Session.create(
+        line_items=[
+            {
+                "price": price,
+                "quantity": 1,
+            },
+        ],
+        mode="subscription",
+        success_url=DOMAIN + "payment-success/",
+        cancel_url=DOMAIN + "payment-cancelled/",
+        client_reference_id=request.user.id,
+    )
 
-    except Exception as e:
-        print(f"Error: {e}")
-        return HttpResponseServerError(
-            "An error occurred during checkout. \
-                                           Please try again later."
-        )
+    # except Exception as e:
+    #     print(f"Error: {e}")
+    #     return HttpResponseServerError(
+    #         "An error occurred during checkout. \
+    #                                     Please try again later."
+    #     )
 
     return redirect(checkout_session.url)
 
