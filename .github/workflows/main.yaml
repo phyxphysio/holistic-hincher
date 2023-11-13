@@ -1,4 +1,4 @@
-#GitHub Actions Workflow
+# GitHub Actions Workflow
 name: CI
 
 on:
@@ -9,9 +9,8 @@ on:
 jobs:
   push_to_registry:
     name: Push Docker image to Docker Hub
-    needs: run_tests
     runs-on: ubuntu-latest
-    if: success() && github.ref == 'refs/heads/staging'  # Only push if tests passed and on staging branch
+    if: success() && github.ref == 'refs/heads/staging' # Only push if tests passed and on staging branch
     steps:
       - name: Log in to Docker Hub
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
@@ -35,24 +34,52 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
         env:
-            SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
-            DOMAIN: ${{ secrets.TEST_DOMAIN }}
-            DJANGO_ADMIN_USERNAME: ${{ secrets.DJANGO_ADMIN_USERNAME }}
-            DJANGO_ADMIN_PASSWORD: ${{ secrets.DJANGO_ADMIN_PASSWORD }}
-            EMAIL_HOST: ${{ secrets.TEST_EMAIL_HOST }}
-            EMAIL_PORT: ${{ secrets.EMAIL_PORT }}
-            EMAIL_HOST_USER: ${{ secrets.TEST_EMAIL_HOST_USER }}
-            EMAIL_HOST_PASSWORD: ${{ secrets.TEST_EMAIL_HOST_PASSWORD }}
-            STRIPE_PUBLIC_KEY: ${{ secrets.TEST_STRIPE_PUBLIC_KEY }}
-            STRIPE_SECRET_KEY: ${{ secrets.TEST_STRIPE_SECRET_KEY }}
-            STRIPE_WEBHOOK_SECRET: ${{ secrets.TEST_STRIPE_WEBHOOK_SECRET }}
-            DEVELOPMENT: ${{ secrets.DEVELOPMENT }}
-            PRODUCTION: ${{ secrets.PRODUCTION }}
-            DB_BACKEND: ${{ secrets.DB_BACKEND }}
-            DB_NAME: ${{ secrets.DB_NAME }}
-            DB_USER: ${{ secrets.TEST_DB_USER }}
-            DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
-            DB_HOST: ${{ secrets.TEST_DB_HOST }}
-            DB_PORT: ${{ secrets.TEST_DB_PORT }}
-            
-      
+          SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+          DOMAIN: ${{ secrets.TEST_DOMAIN }}
+          DJANGO_ADMIN_USERNAME: ${{ secrets.DJANGO_ADMIN_USERNAME }}
+          DJANGO_ADMIN_PASSWORD: ${{ secrets.DJANGO_ADMIN_PASSWORD }}
+          EMAIL_HOST: ${{ secrets.TEST_EMAIL_HOST }}
+          EMAIL_PORT: ${{ secrets.EMAIL_PORT }}
+          EMAIL_HOST_USER: ${{ secrets.TEST_EMAIL_HOST_USER }}
+          EMAIL_HOST_PASSWORD: ${{ secrets.TEST_EMAIL_HOST_PASSWORD }}
+          STRIPE_PUBLIC_KEY: ${{ secrets.TEST_STRIPE_PUBLIC_KEY }}
+          STRIPE_SECRET_KEY: ${{ secrets.TEST_STRIPE_SECRET_KEY }}
+          STRIPE_WEBHOOK_SECRET: ${{ secrets.TEST_STRIPE_WEBHOOK_SECRET }}
+          DEVELOPMENT: ${{ secrets.DEVELOPMENT }}
+          PRODUCTION: ${{ secrets.PRODUCTION }}
+          DB_BACKEND: ${{ secrets.DB_BACKEND }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.TEST_DB_USER }}
+          DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
+          DB_HOST: ${{ secrets.TEST_DB_HOST }}
+          DB_PORT: ${{ secrets.TEST_DB_PORT }}
+
+  deploy_to_eb:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Timestamp
+        uses: gerred/actions/current-time@master
+        id: current-time
+
+      - name: Run String Replace
+        uses: frabert/replace-string-action@master
+        id: format-time
+        with:
+          pattern: '[:\.]+'
+          string: "${{ steps.current-time.outputs.time }}"
+          replace-with: "-"
+          flags: "g"
+
+      - name: Generate Deployment Package
+        run: zip -r deploy.zip * -x "**node_modules**"
+
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v16
+        with:
+          aws_access_key: ${{ secrets.TEST_AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.TEST_AWS_SECRET_ACCESS_KEY }}
+          application_name: hh-docker-app
+          environment_name: hh-docker-app-env
+          version_label: "docker-app-${{ steps.format-time.outputs.replaced }}"
+          region: ap-southeast-2
+          deployment_package: deploy.zip
