@@ -2,7 +2,7 @@
     "web": {
       "image": "$IMAGE_WEB",
       "ports": {
-        "8000": "HTTP"
+        "8000" : "HTTP"
       },
       "environment": {
         "DB_HOST": "$DB_HOST",
