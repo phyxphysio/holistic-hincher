@@ -1,4 +1,4 @@
 {
     "containerName": "web",
-    "containerPort": 80
+    "containerPort": 8000
   }
