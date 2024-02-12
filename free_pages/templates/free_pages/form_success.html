@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}
+    Thank You
+{% endblock title %}
+{% block meta %}
+    <meta name="description"
+          content="Your request has been successfully submitted! Thank you for choosing our cleaning services. We'll get to work making your space shine. Contact us for any further inquiries or assistance.">
+{% endblock meta %}
+{% block content %}
+    {% include "free_pages/includes/header.html" with page_title="Success" page_description="Your message has been sent." %}
+{% endblock content %}

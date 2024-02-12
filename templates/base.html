@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block meta %}
+    {% endblock meta %}
+    <title>
+      {% block title %}
+      {% endblock title %}
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+    <link rel="shortcut icon" type="image/ico" href="{% static 'favicon.ico' %}" >
+
+    {% block css_files %}
+    {% endblock css_files %}
+  </head>
+  <header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}">
+          <img src="{% static 'logo.png' %}"
+               alt="Holistic Hincher Logo"
+               width="120"
+               height="48">
+        </a>
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url "home" %}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url "cleaning_services" %}">Offerings</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url "member_resources" %}">Blogs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url "feedback" %}">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url "about" %}">About Us</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">            {% if user.is_authenticated %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle"
+                   href="#"
+                   role="button"
+                   data-bs-toggle="dropdown"
+                   aria-expanded="false">{{ user.username|capfirst }}</a>
+                <ul class="dropdown-menu p-3">
+                  <li>
+                    <a class="dropdown-item" href="{% url "memberships" %}">Memberships</a>
+                  </li>
+                  {% if user.stripe_customer_id %}
+                    <li>
+                      <a class="dropdown-item" href="{% url "customer_portal" %}">Manage subscription</a>
+                    </li>
+                  {% endif %}
+                  <li>
+                    <a class="dropdown-item" href="{% url 'change_password' %}">Change Password</a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li>
+                    <a class="text-danger dropdown-item" href="{% url 'logout' %}">Log out</a>
+                  </li>
+                </ul>
+              {% else %}
+                <a href="{% url 'login' %}" class="btn btn-secondary bg-darkgreen my-2 text-light">Log In</a>
+              </li>
+            {% endif %}
+            {% if user.is_superuser %}
+              <li>
+                <a href="{% url 'admin:index' %}" class="btn btn-primary mx-2 my-2" target="_blank">Edit Content</a>
+              </li>
+            {% endif %}
+            {% if not user.is_member %}
+              <li>
+                <a href="{% url 'memberships' %}"
+                   class="btn btn-success mx-2 my-2"
+                   style="background-color: #87A37F">Become a Member</a>
+              </li>
+            {% endif %}
+            <li>
+              <a class="nav-link mx-3"
+                 href="https://www.instagram.com/holisticaussiehincher/">
+                <img src="{% static 'instagram.png' %}"
+                     alt="instagram link"
+                     width="50"
+                     height="50">
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <body>
+    {% block content %}  
+    {% endblock content %}
+  </body>
+  <footer class="bg-dark text-light">
+    <div class="container-fluid py-4">
+      <div class="row justify-content-between">
+        <div class="col-md-4 text-center">
+          <a class="footer-link" href="{% url "cleaning_services" %}">
+            <h5>Contact Us</h5>
+          </a>
+        </div>
+        <div class="col-md-4 text-center">
+          <h5>
+            &copy; <span id="current-year"></span>
+            Holistic Hincher
+          </h5>
+        </div>
+        <div class="col-md-4 text-center sitemap">
+          <a class="footer-link"
+             href="{% url "django.contrib.sitemaps.views.sitemap" %}">
+            <h5>Sitemap</h5>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script>
+  const currentYear = new Date().getFullYear();
+  document.getElementById('current-year').textContent = currentYear;
+  </script>  
+</html>

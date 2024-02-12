@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block meta %}
+  <meta name="description"
+        content="Navigate the wealth of business coaching resources on Holistic Hincher's subcategories page. Explore specialized content areas, ranging from leadership development to industry trends. Dive deeper into the topics that matter most to your business success.">
+{% endblock meta %}
+{% block title %}
+  {{ subcategories.0.category.name }}
+{% endblock title %}
+{% block content %}
+  {% include 'free_pages/includes/header.html' with page_title=subcategories.0.category.name page_description=subcategories.0.category.description %}
+  <div class="container-fluid bg-green">
+    <div class="row justify-content-center">
+      <div class="col-md-3 mt-2 text-center mx-auto">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+          <ol class="breadcrumb text-light">
+            <li class="breadcrumb-item">
+              <a href="{% url "member_resources" %}">Member Resources</a>
+            </li>
+            
+            <li class="breadcrumb-item active" aria-current="page">{{ subcategories.0.category.name }}</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <div class="row align-items-center justify-content-center">
+      {% for category in subcategories %}
+        <div class="col-12 col-md-3 p-5 text-center">
+          <div class="card bg-darkgreen text-light mx-auto" style="width: 18rem">
+            {% if category.posts.all.1.image %}
+              <img src="{{ category.posts.all.1.image.url }}"
+                   class="card-img-top p-2 rounded-4"
+                   
+                   alt="{{ category.posts.all.1.image_description }}">
+            {% endif %}
+            <div class="card-body">
+              <h1 class="card-title">{{ category.name }}</h1>
+              <p class="card-text lead">{{ category.description }}</p>
+            </div>
+            <div class="btn-group p-4">
+              <a href="{% url "posts" category_slug=category.category.slug subcategory_slug=category.slug %}">
+                <button type="button" class="btn bg-green text-light">See Latest Posts</button>
+              </a>
+              <button type="button"
+                      class="btn bg-green text-light dropdown-toggle dropdown-toggle-split"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                <span class="visually-hidden">Toggle Dropdown</span>
+              </button>
+              <ul class="dropdown-menu">
+                {% for post in category.posts.all %}
+                  <li>
+                    <a class="dropdown-item"
+                       href="{% url "post_detail" category_slug=category.category.slug subcategory_slug=category.slug post_slug=post.slug %}">{{ post.title }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

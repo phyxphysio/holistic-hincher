@@ -1,0 +1,65 @@
+h1 {
+  font-family: Merriweather !important;
+}
+
+p {
+  font-family: Arial !important;
+}
+body {
+  font-family: sans-serif !important;
+}
+
+.breadcrumb .breadcrumb-item a {
+  color: black; /* Set the initial text color to black */
+  transition: color 0.3s; /* Add a smooth color transition */
+}
+.breadcrumb .breadcrumb-item a:hover {
+  color: white; /* Change the text color to white on hover */
+}
+.breadcrumb .breadcrumb-item.active {
+  color: black; /* Set the active item's text color to black */
+}
+.centered-image {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+}
+.footer-link {
+  color: white;
+}
+.footer-link:hover {
+    color: #87a37f
+}
+.custom-h1 {
+  text-decoration: underline;
+  text-decoration-color: currentcolor;
+  text-decoration-thickness: 2px; /* Set underline thickness */
+  text-decoration-skip-ink: none; /* Disable ink skipping for more even thickness */
+  text-underline-offset: 5px; /* Adjust the padding here */
+}
+
+.separator {
+  width: 100%;
+  border: none;
+  border-top: 1px solid #000; /* Add a horizontal line with styling */
+  margin: 20px 0; /* Adjust margin as needed */
+}
+
+.bg-green {
+  background-color: #87a37f;
+}
+.navbar-nav .nav-item:hover .nav-link {
+  color: #87a37f;
+}
+
+.bg-darkgreen {
+  background-color: #343434;
+}
+
+header {
+  background: Merriweather !important;
+}
+#carouselExample {
+  margin: 0 auto; /* Center the carousel horizontally */
+  max-width: 800px;
+}

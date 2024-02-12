@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block meta %}
+  <meta name="description"
+        content="Dive deep into insightful business coaching content on Holistic Hincher's post detail page. Explore expert guidance with titles, descriptions, text content, images, videos, and downloadable resources. Elevate your business knowledge today.">
+{% endblock meta %}
+{% block title %}
+  {{ post.title }}
+{% endblock title %}
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'home.css' %}">
+{% endblock css_files %}
+{% block content %}
+  {% include 'free_pages/includes/header.html' with page_title=post.title page_description=post.description %}
+  <div class="container-fluid bg-green">
+    <div class="row justify-content-center">
+      <div class="col-md-6 mt-2 text-center">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+          <ol class="breadcrumb text-light">
+            <li class="breadcrumb-item">
+              <a href="{% url "member_resources" %}">Member Resources</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="{% url "subcategories" post.main_category.slug %}">{{ post.main_category.name }}</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="{% url "posts" category_slug=post.main_category.slug subcategory_slug=post.subcategory.slug %}">{{ post.subcategory.name }}</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">{{ post.title }}</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <div class="row justify-content-center mb-5">
+      <div class="col-md-6 mb-3 rounded-3 bg-light p-4">
+        <h1 class="p-4 custom-h1 text-center">{{ post.title }}</h1>
+        {% if post.image %}
+          <img class="centered-image rounded-3 justify-content-center"
+               src="{{ post.image.url }}"
+               alt="{{ post.image_description }}">
+        {% endif %}
+        <hr>
+        <p>{{ post.content|safe }}</p>
+        {% if post.file %}
+          <a href="{{ post.file.url }}" class="btn bg-green text-center ">Download Resources</a>
+          <p>{{ post.file.name }}</p>
+        {% endif %}
+      </div>
+    </div>
+    {% if post.video %}
+      <div class="row p-3 justify-content-center">
+        <div class="col-md-6 rounded-3 p-3 text-center bg-darkgreen">
+          <video controls width="20%" height="auto" class="post-video">
+            <source src="{{ post.video.url }}" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}

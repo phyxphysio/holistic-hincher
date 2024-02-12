@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block meta %}
+  <meta name="description"
+        content="Join us today! Sign up for an account to access our exclusive business coaching content and services. It's quick, easy, and the first step towards enhancing your business journey.">
+{% endblock meta %}
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'home.css' %}">
+{% endblock css_files %}
+{% block title %}
+  Sign Up
+{% endblock title %}
+{% block content %}
+  <div class="container-fluid bg-green">
+    <div class="row p-5"></div>
+    <div class="row justify-content-center align-items-center">
+      <div class="col-md-6 justify-content-center">
+        <h2 class="display-1 text-center text-white">Create your free account</h2>
+      </div>
+      <div class="col-md-6">
+        <div class="card rounded-5 p-3 text-white bg-dark">
+          <div class="card-body">
+            <h2 class="card-title text-center mb-3 display-2">Sign Up</h2>
+            {% if form.errors %}
+              <div class="alert alert-danger">
+                <strong>Error:</strong> There were some problems with your submission.
+              </div>
+            {% endif %}
+            <form method="post" class="mt-4">
+              {% csrf_token %}
+              {% for field in form %}
+                <div class="form-group text-center p-2">
+                  {{ field }}
+                  {% if field.errors %}
+                    <div class="text-warning">
+                      {% for error in field.errors %}{{ error }}{% endfor %}
+                    </div>
+                    {% if field.help_text %}<small class="form-text text-light">{{ field.help_text }}</small>{% endif %}
+                  {% endif %}
+                </div>
+              {% endfor %}
+              <div class="text-center">
+                <button type="submit" class="btn btn-success bg-green">Sign Up</button>
+              </div>
+            </form>
+            <p class="text-center mt-3">Already have an account?</p>
+            <a href="{% url 'login' %}" class="btn btn-primary mx-auto d-block">Log In</a>
+          </div>
+        </div>
+      </div>
+      <div class="row p-5"></div>
+    </div>
+  </div>
+{% endblock %}

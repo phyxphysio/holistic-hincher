@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+{% load mathfilters %}
+{% block meta %}
+  <meta name="description"
+        content="Explore our membership options for Northern Beaches cleaning businesses. Choose from a range of plans to access exclusive business coaching content and enhance your cleaning business journey. Join today to get started!">
+{% endblock meta %}
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'home.css' %}">
+{% endblock css_files %}
+{% block title %}
+  Memberships
+{% endblock title %}
+{% block content %}
+  {% include "free_pages/includes/header.html" with page_title="Memberships" page_description="Choose a plan to improve your business" %}
+  <div class="container-fluid bg-green">
+    {% if user.is_member %}
+      <div class="row p-4 justify-content-center">
+        <div class="col text-center mx-auto">
+          <a href="{% url "customer_portal" %}"
+             class="btn bg-darkgreen text-light">Change Membership</a>
+        </div>
+      </div>
+    {% endif %}
+    <div class="row p-4 justify-content-center">
+      {% for membership in memberships %}
+        <div class="col p-3">
+          <div class="card mx-auto rounded-5 bg-darkgreen text-center text-light"
+               style="width: 18rem">
+            <img src="{{ membership.images.0 }}"
+                 class="card-img-top p-3 rounded-5"
+                 height="200px"
+                 width="200px"
+                 alt="{{ membership.name }} Image">
+            <div class="card-body">
+              <h5 class="card-title">{{ membership.name }}</h5>
+              <p class="card-text">{{ membership.description }}</p>
+              {% for price in prices %}
+                {% if price.product == membership.id and price.id == membership.default_price %}
+                  {% if price.recurring.interval_count > 1 %}
+                    <p class="card-text">
+                      ${{ price.unit_amount|div:100|floatformat:0 }} every
+                      {{ price.recurring.interval_count }} {{ price.recurring.interval }}s
+                    </p>
+                  {% else %}
+                    <p class="card-text">
+                      ${{ price.unit_amount|div:100|floatformat:0 }} per
+                      {{ price.recurring.interval }}
+                    </p>
+                  {% endif %}
+                  {% if not user.is_member %}
+                    <a href="{% url 'payment' price=membership.default_price %}"
+                       class="btn btn-success">Subscribe</a>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="row jusify-content-center align-items-center">
+      <div class="col-md-6 mx-auto text-white">
+        <h1 class="text-center text-decoration-underline">Improve Your Business</h1>
+        <p>{{ benefits|safe }}</p>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

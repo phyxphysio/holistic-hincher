@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load static %}
+{% block meta %}
+    <meta name="description"
+          content="Provide your valuable feedback to help us improve our services. Use our feedback form to share your thoughts and suggestions with us today." />
+{% endblock meta %}
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+{% endblock css_files %}
+{% block title %}
+    Feedback
+{% endblock title %}
+{% block content %}
+    {% include "free_pages/includes/header.html" with page_title="Feedback" page_description="Got feedback? We'd love to hear it!" %}
+    <div class="container-fluid align-items-center bg-green">
+        <div class="row  p-3 justify-items-center">
+            <div class="col-md-6 mx-auto ">
+                <div class="card p-5 text-light bg-darkgreen rounded-5">
+                    {% if form.errors %}
+                        <div class="alert alert-danger">
+                            <strong>Error:</strong> There were some problems with your submission.
+                            {% for error in form.errors %}
+                                <ul class="center-bullets">
+                                    <li>{{ error }}</li>
+                                </ul>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <p>{{ field.label_tag }}    {{ field }}</p>
+                            <p>{{ field.help_text }}</p>
+                            {% if field.errors %}
+                                <div class="text-warning">
+                                    {% for error in field.errors %}{{ error }}{% endfor %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        <button class="btn bg-green text-light btn-lg" type="submit">Send Feedback</button>
+                        <div class="spinner-border p-2" role="status" id="loadingSpinner">
+                            <span class="visually-hidden">Sending...</span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous">
+    </script>
+
+    <script>
+            $(document).ready(function() {
+                // Function to update the visibility of 'feedback' field and other fields
+                function updateFeedbackVisibility() {
+                    var selectedOption = $('#id_feedback_category').val();
+                    var showFeedback = ['other', 'business_coaching', 'website'].includes(selectedOption);
+                    var cleaningFeedback = [
+                        'satisfaction_rating',
+                        'cleanliness_rating',
+                        'instructions_followed',
+                        'areas_for_improvement',
+                        'areas_of_satisfaction',
+                        'would_reccommend',
+                        'additional_information',
+                        'contact_information'
+                    ];
+            
+                    // Hide or show the 'feedback' field and its label
+                    if (showFeedback) {
+                        $('#id_feedback').show();
+                        $('label[for="id_feedback"]').show();
+                    } else {
+                        $('#id_feedback').hide();
+                        $('label[for="id_feedback"]').hide();
+                    }
+            
+                    // Hide or show the fields in 'cleaningFeedback' based on 'showFeedback' value
+                    for (var i = 0; i < cleaningFeedback.length; i++) {
+                        var fieldName = cleaningFeedback[i];
+                        if (showFeedback) {
+                            $('#id_' + fieldName).hide();
+                            $('label[for="id_' + fieldName + '"]').hide();
+                        } else {
+                            $('#id_' + fieldName).show();
+                            $('label[for="id_' + fieldName + '"]').show();
+                        }
+                    }
+                }
+            
+                // Initially hide the 'feedback' field and its label
+                $('#id_feedback').hide();
+                $('label[for="id_feedback"]').hide();
+                $('#loadingSpinner').hide();
+
+
+
+            
+                // Attach a change event handler to the 'feedback_category' field
+                $('#id_feedback_category').change(function() {
+                    updateFeedbackVisibility();
+                });
+
+                $('form').submit(function(event) {
+                    $('#loadingSpinner').show();
+                });            
+                
+                updateFeedbackVisibility();
+            });
+    </script>
+{% endblock content %}

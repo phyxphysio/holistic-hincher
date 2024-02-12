@@ -1,0 +1,84 @@
+name: build
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  AWS_REGION: ap-southeast-2
+  DB_HOST: ${{ secrets.PROD_DB_HOST }}
+  DB_DATABASE: Database-1
+  DB_USERNAME: ${{ secrets.PROD_DB_USERNAME }}
+  DB_PASSWORD: ${{ secrets.PROD_DB_PASSWORD }}
+  DB_PORT: 5432
+  SERVICE_NAME: container-service-1
+  SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+  DOMAIN: ${{ secrets.PROD_DOMAIN }}
+  EMAIL_HOST: ${{ secrets.EMAIL_HOST }}
+  EMAIL_PORT: ${{ secrets.EMAIL_PORT }}
+  EMAIL_HOST_USER: ${{ secrets.EMAIL_HOST_USER }}
+  EMAIL_HOST_PASSWORD: ${{ secrets.EMAIL_HOST_PASSWORD }}
+  STRIPE_PUBLIC_KEY: ${{ secrets.JULES_TEST_STRIPE_PUBLIC_KEY }}
+  STRIPE_SECRET_KEY: ${{ secrets.JULES_TEST_STRIPE_SECRET_KET }}
+  STRIPE_WEBHOOK_SECRET: ${{ secrets.PROD_STRIPE_WEBHOOK_SECRET }}
+  DEVELOPMENT: ${{ secrets.DEVELOPMENT }}
+  DB_BACKEND: ${{ secrets.DB_BACKEND }}
+  DB_NAME: ${{ secrets.DB_NAME }}
+  DB_USER: ${{ secrets.PROD_DB_USERNAME }}
+  DB_PORTS: 5432
+  EMAIL_RECIPIENT: ${{ secrets.EMAIL_RECIPIENT }}
+  EMAIL_RECIPIENT_2: ${{ secrets.EMAIL_RECIPIENT_2 }}
+
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build Docker Image - Web
+        run: docker build -t web
+        
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+          
+      - name: Install AWS Lightsail
+        run: |
+          curl "https://s3.us-west-2.amazonaws.com/lightsailctl/latest/linux-amd64/lightsailctl" -o "lightsailctl"
+          sudo mv "lightsailctl" "/usr/local/bin/lightsailctl"
+          sudo chmod +x /usr/local/bin/lightsailctl
+
+      - name: Push Docker Image - Web 
+        run: |
+          aws lightsail push-container-image \
+            --service-name ${{ env.SERVICE_NAME }} \
+            --label web \
+            --image web:latest
+      
+      - name: Get Docker Image Version - Web
+        run: > 
+          echo "IMAGE_WEB=$(aws lightsail get-container-images --service-name ${{ env.SERVICE_NAME }} | jq -r '.containerImages | map(select(.image | contains ("web") )) | .[0].image')" >> $GITHUB_ENV
+      
+      - name: Generate containers.json file
+        run: |
+          cat containers.template.json | envsubst > containers.json
+          cat containers.json
+
+      - name: Deploy
+        run: |
+          aws lightsail create-container-service-deployment \
+            --service-name ${{ env.SERVICE_NAME }} \
+            --containers file://containers.json \
+            --public-endpoint file://endpoints.json

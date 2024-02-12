@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+{% block meta %}
+    <meta name="description"
+          content="Experience top-notch cleaning services for your home or office. Fill out our easy-to-use form to request professional house or office cleaning today. We make your space spotless and hassle-free.">
+{% endblock meta %}
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+{% endblock css_files %}
+{% block title %}
+    Cleaning Services
+{% endblock title %}
+{% block content %}
+    {% include "free_pages/includes/header.html" with page_title='Cleaning Services' page_description='We take pride in our cleaning. Get in touch for a quote!' %}
+    <div class="container-fluid bg-green">
+        <div class="row p-3 justify-content-cetner">
+            <div class="col-md-6 p-2 mx-auto">
+                <div class="card bg-darkgreen text-light rounded-5">
+                    <div class="card-body mx-auto">
+                        {% if form.errors %}
+                            <div class="alert alert-danger">
+                                <strong>Error:</strong> There were some problems with your submission.
+                                {% for error in form.errors %}
+                                    <ul class="center-bullets">
+                                        <li>{{ error }}</li>
+                                    </ul>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <form method="post" novalidate>
+                            {% csrf_token %}
+                            {% for pair in index_pairs %}
+                                <div class="row">
+                                    {% for field in pair %}
+                                        <div class="col">
+                                            <p>{{ field.label_tag }}</p>
+                                            <p>{{ field }}</p>
+                                        </div>
+                                        {% if field.errors %}
+                                            <div class="text-warning">
+                                                {% for error in field.errors %}{{ error }}{% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                            <button id="submit-button"
+                                    class="btn text-light btn-lg bg-green"
+                                    type="submit">Send Enquiry</button>
+                            <div class="spinner-border p-2" role="status" id="loadingSpinner">
+                                <span class="visually-hidden">Sending...</span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous">
+    </script>
+
+    <script>
+        $('#loadingSpinner').hide();
+
+        $('form').submit(function(event) {
+            $('#loadingSpinner').show();
+        });            
+
+
+
+    </script>
+{% endblock content %}

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block meta %}
+  <meta name="description"
+        content="Discover a treasure trove of business coaching insights and strategies on Holistic Hincher's posts page. Explore a diverse collection of articles, videos, and resources designed to empower your business journey. Stay informed and inspired with our valuable content library.">
+{% endblock meta %}
+{% block title %}
+  {{ posts.0.subcategory.name }}
+{% endblock title %}
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'home.css' %}">
+{% endblock css_files %}
+{% block content %}
+  {% include 'free_pages/includes/header.html' with page_title=posts.0.subcategory.name page_description="Latest Posts" %}
+  <div class="container-fluid bg-green">
+    <div class="row justify-content-center">
+      <div class="col-md-3 mt-2 text-center">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+          <ol class="breadcrumb text-light">
+            <li class="breadcrumb-item">
+              <a href="{% url "member_resources" %}">Member Resources</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="{% url "subcategories" posts.0.main_category.slug %}">{{posts.0.subcategory.name}}</a>
+            </li>
+            
+            <li class="breadcrumb-item active" aria-current="page">{{ posts.0.subcategory.name }}</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+
+    {% for post in posts %}
+      <div class="row justify-content-center">
+        <div class="col-md-6 p-3">
+          <div class="card p-3 bg-darkgreen text-light">
+            <div class="row no-gutters">
+              <div class="col-md-4">
+                {% if post.image %}
+                  <img src="{{ post.image.url }}"
+                       class="card-img"
+                       alt="{{ post.image_description }}">
+                {% endif %}
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h1 class="card-title">{{ post.title }}</h1>
+                  <p class="card-text lead">{{ post.description }}</p>
+                  <a href="{% url "post_detail" category_slug=main_category_slug subcategory_slug=subcategory_slug post_slug=post.slug %}"
+                     class="btn bg-green text-light">See Post</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
