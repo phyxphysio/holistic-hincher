@@ -20,4 +20,4 @@ RUN pip install -r requirements.txt
 EXPOSE 8000
 
 # Run gunicorn when the container launches
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "hh_app.wsgi:application"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "wsgi:application"]
