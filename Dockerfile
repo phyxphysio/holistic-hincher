@@ -20,6 +20,6 @@ RUN python manage.py collectstatic --no-input
 # Make port 8000 available to the world outside this container
 EXPOSE 8000
 
-
 # Run gunicorn when the container launches
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "holistic_hincher.wsgi:application"]
+RUN chmod +x /app/entrypoint.sh
+ENTRYPOINT ["/app/entrypoint.sh"]
