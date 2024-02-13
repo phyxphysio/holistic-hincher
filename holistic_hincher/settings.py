@@ -53,6 +53,7 @@ DB_PORTS = os.getenv('DB_PORTS','')
 
 HOST_IP = os.getenv('HOST_IP')
 ALLOWED_HOSTS = ['172.26.21.143', HOST_IP, 'container-service-1.n0von6o0mdks0.ap-southeast-2.cs.amazonlightsail.com', '127.0.0.1']
+CSRF_TRUSTED_ORIGINS = [DOMAIN]
 
 # Application definition
 
