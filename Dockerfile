@@ -15,9 +15,11 @@ COPY . /app
 # Install any needed packages specified in requirements.txt
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
+RUN python manage.py collectstatic --no-input  # Collect static files
 
 # Make port 8000 available to the world outside this container
 EXPOSE 8000
+
 
 # Run gunicorn when the container launches
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "holistic_hincher.wsgi:application"]

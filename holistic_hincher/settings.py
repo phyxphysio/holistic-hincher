@@ -52,7 +52,7 @@ DB_PORTS = os.getenv('DB_PORTS','')
 
 
 
-ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", DOMAIN, 'hheb-env.eba-yi3advda.ap-southeast-2.elasticbeanstalk.com', "172.31.47.94", "localhost", "172.31.17.103"]
+ALLOWED_HOSTS = ["0.0.0.0", DOMAIN, "172.26.30.54"]
 
 # Application definition
 
