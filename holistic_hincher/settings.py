@@ -52,7 +52,7 @@ DB_PORTS = os.getenv('DB_PORTS','')
 
 
 
-ALLOWED_HOSTS = ["0.0.0.0", DOMAIN, "172.26.30.54"]
+ALLOWED_HOSTS = ["0.0.0.0", DOMAIN, "172.26.30.54", 'container-service-1.n0von6o0mdks0.ap-southeast-2.cs.amazonlightsail.com']
 
 # Application definition
 
