@@ -4,6 +4,7 @@
       "ports": {
         "8000" : "HTTP"
       },
+      "command": ["./entrypoint.sh"],
       "environment": {
         "DB_HOST": "$DB_HOST",
         "DB_DATABASE": "$DB_DATABASE",
@@ -22,6 +23,7 @@
         "DB_NAME": "$DB_NAME",
         "DB_USER": "$DB_USER",
         "DB_PORTS": "$DB_PORTS",
+        "HOST_IP": "$HOST_IP",
         "EMAIL_RECIPIENT": "$EMAIL_RECIPIENT",
         "STRIPE_WEBHOOK_SECRET": "$STRIPE_WEBHOOK_SECRET",
         "EMAIL_RECIPIENT_2": "$EMAIL_RECIPIENT_2"

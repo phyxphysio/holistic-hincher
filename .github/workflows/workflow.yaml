@@ -34,7 +34,7 @@ env:
   DB_PORTS: 5432
   EMAIL_RECIPIENT: ${{ secrets.EMAIL_RECIPIENT }}
   EMAIL_RECIPIENT_2: ${{ secrets.EMAIL_RECIPIENT_2 }}
-
+  HOST_IP: ${{ secrets.HOST_IP }}
 
 jobs:
 
