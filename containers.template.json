@@ -4,7 +4,6 @@
       "ports": {
         "8000" : "HTTP"
       },
-      "command": ["./entrypoint.sh"],
       "environment": {
         "DB_HOST": "$DB_HOST",
         "DB_DATABASE": "$DB_DATABASE",
