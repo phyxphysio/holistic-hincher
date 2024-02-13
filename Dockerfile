@@ -15,7 +15,8 @@ COPY . /app
 # Install any needed packages specified in requirements.txt
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
-RUN python manage.py collectstatic --no-input  # Collect static files
+RUN python manage.py collectstatic --no-input  
+RUN python manage.py migrate
 
 # Make port 8000 available to the world outside this container
 EXPOSE 8000
