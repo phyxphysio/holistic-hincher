@@ -56,8 +56,6 @@ ALLOWED_HOSTS = ['172.26.21.143', HOST_IP, 'https://container-service-1.n0von6o0
 
 CSRF_TRUSTED_ORIGINS = ['https://container-service-1.n0von6o0mdks0.ap-southeast-2.cs.amazonlightsail.com']
 CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True  # Only send session cookies over HTTPS
-SECURE_SSL_REDIRECT = True  # Redirect HTTP requests to HTTPS
 
 
 # Application definition
