@@ -52,7 +52,7 @@ DB_PORTS = os.getenv('DB_PORTS','')
 
 
 HOST_IP = os.getenv('HOST_IP')
-ALLOWED_HOSTS = ['172.26.21.143', '172.26.26.15', HOST_IP, 'https://container-service-1.n0von6o0mdks0.ap-southeast-2.cs.amazonlightsail.com', 'container-service-1.n0von6o0mdks0.ap-southeast-2.cs.amazonlightsail.com', '127.0.0.1']
+ALLOWED_HOSTS = ['172.26.21.143', '172.26.26.15', HOST_IP, 'https://container-service-1.n0von6o0mdks0.ap-southeast-2.cs.amazonlightsail.com', 'container-service-1.n0von6o0mdks0.ap-southeast-2.cs.amazonlightsail.com','holistichincher.com','www.holistichincher.com', '127.0.0.1']
 
 CSRF_TRUSTED_ORIGINS = ['https://container-service-1.n0von6o0mdks0.ap-southeast-2.cs.amazonlightsail.com']
 
