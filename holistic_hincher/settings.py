@@ -181,8 +181,7 @@ CKEDITOR_CONFIGS = {
     },
 }
 
-# EMAIL_USE_TLS = True
-EMAIL_USE_SSL = True
+EMAIL_USE_TLS = True
 
 AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
 
