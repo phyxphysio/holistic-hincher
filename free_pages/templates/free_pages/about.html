@@ -1,43 +1,44 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block meta %}
-  <meta name="description"
-        content="Learn more about Holistic Hincher and their commitment to unpolluted, purifying, and wholesome home cleaning services. Discover the passion for green cleaning, top-quality cleaners, and eco-friendly products.">
-{% endblock meta %}
-
-{% block title %}
-  About Holistic Hincher
-{% endblock title %}
-
-{% block css_files %}
-  <link rel="stylesheet" href="{% static 'home.css' %}">
-  <!-- You may need to include additional CSS files for styling specific to the "about" page. -->
-{% endblock css_files %}
-
-{% block content %}
-  {% include 'free_pages/includes/header.html' with page_title="About Holistic Hincher" %}
-  <div class="container-fluid bg-green">
-    <div class="row justify-content-center">
-      <div class="col-md-6 mt-2 text-center">
-        <!-- Breadcrumb or navigation if needed -->
-      </div>
-    </div>
-    <div class="row justify-content-center mb-5">
-      <div class="col-md-6 mb-3 rounded-3 bg-light p-4">
-        <h1 class="p-4 custom-h1 text-center">About Holistic Hincher</h1>
-        <!-- Add your about text here -->
-        <p>
-          After recognizing the need for unpolluted, purifying, and wholesome home cleans, and a passion for 'green cleaning', Holistic Hincher was born. Inspired by the famous Mrs. Hinch, the Instagram sensation and British 'cleanfluencer', Holistic Hincher's passion is in keeping things in tip-top condition, transforming homes, and making life easier for their clients. We focus on domestic cleaning using products that not only clean effectively but also disinfect, are non-toxic, and have a great long-lasting fragrance.
-        </p>
-        <p>
-          We all take pride in maintaining a clean, healthy home, but often the thought of endless cleaning can leave you feeling overwhelmed. At Holistic Hincher, our goal is to make your life easier by handling the cleaning for you. So, whether it's just a routine cleaning package you need, or something as specific as a pantry cleanout and repack, or a quick home reset before your guests arrive for a special dinner, we will tailor a package to suit your unique needs.
-        </p>
-        <p>
-          We have a team of dedicated cleaners who are handpicked from the best of the best and are devoted to providing the highest level of service and care for your home.
-        </p>
-        <!-- End of about text -->
-      </div>
+{% extends 'base.html' %} {% load static %} {% block meta %}
+<meta
+  name="description"
+  content="Learn more about Holistic Hincher and their commitment to unpolluted, purifying, and wholesome home cleaning services. Discover the passion for green cleaning, top-quality cleaners, and eco-friendly products."
+/>
+{% endblock meta %} {% block title %} About Holistic Hincher {% endblock title %}
+ {% block css_files %}
+<link rel="stylesheet" href="{% static 'home.css' %}" />
+<!-- You may need to include additional CSS files for styling specific to the "about" page. -->
+{% endblock css_files %} {% block content %} 
+{% include 'free_pages/includes/header.html' with page_title="About Holistic Hincher" %}
+<div class="container-fluid bg-green">
+  <div class="row justify-content-center mb-5">
+    <div class="col-md-6 mb-3 rounded-3 bg-light p-4">
+      <p>
+        Welcome to the world of Holistic Hincher, where passion and high vibing
+        frequency converge to create transformative spaces. 
+      </p>
+        <p>Founded by Jules,
+        who took the reins over from a long-standing cleaning business from E.
+        Gibbs Manage my Place,</p>
+        <p>Our mission now is to bring the art of holistic
+        solutions to your home and commercial environments.</p>
+        <p>Drawing inspiration
+        from the renowned lifestyle and cleaning methods of Mrs. Hinch, Jules
+        infuses her work with a deep sense of purpose and a commitment to
+        creating warm and inviting spaces.</p>
+        <p>With a journey that spans from New
+        Zealand to South Africa and the UK, and now settling in sunny
+        Aus-tralia, Jules's holistic approach is shaped by diverse experiences
+        and a profound understanding that where focus goes, energy flows.</p>
+        <p>At
+        Holistic Hincher, we go beyond surface-level aesthetics. We understand
+        that a space has the power to nurture, inspire, and leave a lasting
+        impression. Whether it's managing your home with care and attention to
+        detail or transforming your small business and commercial space into
+        welcoming havens, our focus is on crafting environments that radiate
+        positive energy and promote well-being.</p>
+      </p>
+      <p>Experience the transformative effects of our holistic approach as we merge the art of creating harmonious spaces with our unwavering support for small businesses. Let us help you elevate your space to new heights, where warmth, comfort, and success intertwine in perfect harmony. Discover the magic of Holistic Hincher today.</p>
     </div>
   </div>
+</div>
 {% endblock %}

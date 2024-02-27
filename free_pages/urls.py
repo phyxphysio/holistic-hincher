@@ -9,7 +9,8 @@ from .views import (
     FeedbacktFormView,
     FormSuccessView,
     AboutView,
-    MemberResourcesView
+    MemberResourcesView,
+    OfferingsView
 )
 
 urlpatterns = [
@@ -30,7 +31,7 @@ urlpatterns = [
         PostDetailView.as_view(),
         name="post_detail",
     ),
-    path("cleaning-services", ContactFormView.as_view(), name="cleaning_services"),
+    path("cleaning-services", OfferingsView.as_view(), name="cleaning_services"),
     path("feedback", FeedbacktFormView.as_view(), name="feedback"),
     path("success", FormSuccessView.as_view(), name="form_success"),
     path("about", AboutView.as_view(), name="about"),

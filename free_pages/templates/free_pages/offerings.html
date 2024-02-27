@@ -1,0 +1,61 @@
+{% extends 'base.html' %} {% load static %} {% block meta %}
+<meta
+  name="description"
+  content="Experience top-tier professional cleaning services with our expert team. Tailored solutions for homes, offices, and commercial spaces that promise a spotless, hygienic environment. Schedule a clean today and feel the difference!"
+/>
+{% endblock meta %} {% block title %} Offerings {% endblock title %} 
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'home.css' %}" />
+{% endblock css_files %} {% block content %} 
+{% include 'free_pages/includes/header.html' with page_title="Offerings" page_description="Fantastic options for homes and businesses." %}
+
+<div class="container-fluid bg-green">
+  <div class="row justify-content-center">
+    <!-- Packages Card -->
+    <div class="col-md-4 my-5">
+      <div class="card bg-dark">
+        <img
+          src="{% static 'free_pages/hero.png' %}"
+          class="card-img-top p-4 rounded-4"
+          height="400"
+          alt="Cleaning Packages"
+        />
+        <div class="card-body text-light">
+          <h5 class="card-title">Packages</h5>
+          <p class="card-text">
+            Choose our comprehensive cleaning packages tailored for your home or
+            office. Enjoy a refreshing and professional clean that covers all
+            areas, ensuring a spotless and welcoming space.
+          </p>
+          <a href="{% static 'free_pages/packages.pdf' %}" class="btn btn-primary" download
+            >Download Packages</a
+          >
+        </div>
+      </div>
+    </div>
+    <!-- Extras Card -->
+    <div class="col-md-4 my-5">
+      <div class="card bg-dark">
+        <img
+          src="{% static 'free_pages/mop.png' %}"
+          class="card-img-top p-4"
+          alt="Additional Services"
+          height="400"
+        />
+        <div class="card-body text-light">
+          <h5 class="card-title">Extras</h5>
+          <p class="card-text">
+            Discover our special cleaning services and extras that go beyond the
+            standard. From deep cleaning to specialized disinfection services,
+            we have the extra touch you need for a pristine environment.
+          </p>
+          <a href="{% static 'free_pages/extras.pdf' %}" class="btn btn-primary" download
+            >Download Extras</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

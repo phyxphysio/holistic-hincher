@@ -33,6 +33,8 @@ def home(request):
 class PasswordChangeSuccessView(TemplateView):
     template_name = "password_change/success.html"
 
+class OfferingsView(TemplateView):
+    template_name = 'free_pages/offerings.html'
 
 class ChangePasswordView(PasswordChangeView):
     template_name = "password_change/change_password.html"
