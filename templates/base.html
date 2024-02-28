@@ -50,8 +50,12 @@
               <a class="nav-link" href="{% url "member_resources" %}">Blogs</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url "feedback" %}">Contact</a>
+              <a class="nav-link" href="{% url "contact_info" %}">Contact</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url "feedback" %}">Feedback</a>
+            </li>
+
             <li class="nav-item">
               <a class="nav-link" href="{% url "about" %}">About Us</a>
             </li>
@@ -95,7 +99,7 @@
               <li>
                 <a href="{% url 'memberships' %}"
                    class="btn btn-success mx-2 my-2"
-                   style="background-color: #87A37F">Become a Member</a>
+                   style="background-color: #87A37F">Subscribe</a>
               </li>
             {% endif %}
             <li>

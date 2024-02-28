@@ -36,6 +36,9 @@ class PasswordChangeSuccessView(TemplateView):
 class OfferingsView(TemplateView):
     template_name = 'free_pages/offerings.html'
 
+class ContactInfoView(TemplateView):
+    template_name = 'free_pages/contact_info.html'
+
 class ChangePasswordView(PasswordChangeView):
     template_name = "password_change/change_password.html"
     form_class = PasswordChangeForm

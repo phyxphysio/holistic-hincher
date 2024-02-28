@@ -79,6 +79,7 @@ urlpatterns = [
     path("signup/", SignUpView.as_view(), name="signup"),
     path("payment/<price>", views.create_checkout_session, name="payment"),
     path("memberships/", views.list_memberships, name="memberships"),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

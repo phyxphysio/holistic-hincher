@@ -20,7 +20,6 @@ ENVIRONMENT = os.getenv('ENV', 'development')
 # Load the appropriate .env file
 dotenv_path = f'.env.{ENVIRONMENT}'
 load_dotenv(dotenv_path=dotenv_path)
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -30,7 +29,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
-
 # Environment variables here
 DOMAIN = os.getenv('DOMAIN')
 DJANGO_ADMIN_USERNAME = os.getenv('DJANGO_ADMIN_USERNAME')
