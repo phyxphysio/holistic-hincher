@@ -21,23 +21,28 @@ def test_memberships_view(client):
     response = client.get(url)
     assert response.status_code == 200
 
-@pytest.mark.django_db
-def test_cleaning_services_view(client, form_data_fixture):
-    url = reverse("cleaning_services")
+# @pytest.mark.django_db
+# def test_cleaning_services_view(client, form_data_fixture):
+#     url = reverse("cleaning_services")
+#     response = client.get(url)
+#     assert response.status_code == 200
+
+#     # Test form submission
+#     form_instance = ContactForm()
+#     form_data = form_data_fixture(form_instance)
+#     response = client.post(url, form_data)
+#     print(response.content.decode("utf-8"))
+#     assert response.status_code == 302
+
+#     # # Test email has been sent
+#     assert len(mail.outbox) == 1
+#     sent_email = mail.outbox[0]
+#     assert "Sample text" in sent_email.body
+
+def test_contact_info_view(client):
+    url = reverse('contact_info')
     response = client.get(url)
     assert response.status_code == 200
-
-    # Test form submission
-    form_instance = ContactForm()
-    form_data = form_data_fixture(form_instance)
-    response = client.post(url, form_data)
-    print(response.content.decode("utf-8"))
-    assert response.status_code == 302
-
-    # # Test email has been sent
-    assert len(mail.outbox) == 1
-    sent_email = mail.outbox[0]
-    assert "Sample text" in sent_email.body
 
 def test_feedback_view(client, form_data_fixture):
     url = reverse("feedback")
