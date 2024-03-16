@@ -84,7 +84,10 @@
                     <hr class="dropdown-divider">
                   </li>
                   <li>
-                    <a class="text-danger dropdown-item" href="{% url 'logout' %}">Log out</a>
+                    <form action="{% url 'logout' %}" method="post">
+                      {% csrf_token %}
+                      <input type="submit" value="Logout" class = 'btn btn-danger'>
+                    </form>
                   </li>
                 </ul>
               {% else %}
