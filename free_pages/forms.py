@@ -127,7 +127,7 @@ FEEDBACK_CATEGORIES = [
     ("other", "Other"),
 ]
 SATISFACTION_RATINGS = [
-    ("",""),
+    ("", ""),
     ("very satisfied", "Very satisfied"),
     ("satisfied", "Satisfied"),
     ("neutral", "Neutral"),
@@ -135,7 +135,7 @@ SATISFACTION_RATINGS = [
     ("very dissatisfied", "Very dissatisfied"),
 ]
 CLEANLINESS_RATINGS = [
-    ("",""),
+    ("", ""),
     ("excellent", "Excellent"),
     ("good", "Good"),
     ("average", "Average"),
@@ -143,26 +143,25 @@ CLEANLINESS_RATINGS = [
     ("very poor", "Very poor"),
 ]
 INSTRUCTIONS_FOLLOWED = [
-    ("",""),
+    ("", ""),
     ("yes", "Yes, completely"),
     ("partially", "Yes, but partially"),
     ("no", "No, not at all"),
 ]
 AREAS = [
-        ("",""),
-        ("dusting/vaccumming" ,"Dusting and vacuuming"),
-        ("kitchen/bedroom","Kitchen & Bathrooms"),
-        ("extra/rotational","Extras & rotational items"),
-        ('helpful/friendly',"Helpful & friendly manner"),
-    ]
+    ("", ""),
+    ("dusting/vaccumming", "Dusting and vacuuming"),
+    ("kitchen/bedroom", "Kitchen & Bathrooms"),
+    ("extra/rotational", "Extras & rotational items"),
+    ("helpful/friendly", "Helpful & friendly manner"),
+]
 RECCOMMENDATION_CHOICES = [
-        ("",""),
-        ("yes","Yes, definitley"),
-        ("maybe","Yes, maybe"),
-        ("probably not","No, probably not"),
-        ("no","No, defnitley not"),
-    ]
-
+    ("", ""),
+    ("yes", "Yes, definitley"),
+    ("maybe", "Yes, maybe"),
+    ("probably not", "No, probably not"),
+    ("no", "No, defnitley not"),
+]
 
 
 class FeedbackForm(forms.Form):
@@ -213,5 +212,5 @@ class FeedbackForm(forms.Form):
         label="Please provide your contact information if you would like us to follow up with you regarding your feedback",
         widget=forms.Textarea,
         required=False,
-        help_text="Thank you for taking the time to complete this feedback form. We appreciate your input and look forward to serving you again in the future."
+        help_text="Thank you for taking the time to complete this feedback form. We appreciate your input and look forward to serving you again in the future.",
     )

@@ -2,10 +2,11 @@
 {% load static %}
 {% block meta %}
   <meta name="description"
-        content="Join us today! Sign up for an account to access our exclusive business coaching content and services. It's quick, easy, and the first step towards enhancing your business journey.">
+        content="Join us today! Sign up for an account to access our exclusive business coaching content and services. It's quick, easy, and the first step towards enhancing your business journey." />
 {% endblock meta %}
 {% block css_files %}
-  <link rel="stylesheet" href="{% static 'home.css' %}">
+  <link rel="stylesheet" href="{% static 'home.css' %}" />
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 {% endblock css_files %}
 {% block title %}
   Sign Up
@@ -23,7 +24,8 @@
             <h2 class="card-title text-center mb-3 display-2">Sign Up</h2>
             {% if form.errors %}
               <div class="alert alert-danger">
-                <strong>Error:</strong> There were some problems with your submission.
+                <strong>Error:</strong> There were some problems with your
+                submission.
               </div>
             {% endif %}
             <form method="post" class="mt-4">
@@ -39,12 +41,24 @@
                   {% endif %}
                 </div>
               {% endfor %}
-              <div class="text-center">
-                <button type="submit" class="btn btn-success bg-green">Sign Up</button>
+              <div class="row justify-content-center align-items-center">
+                <div class="col-md-6 text-center d-flex justify-content-center mt-4">
+                  <div class="g-recaptcha"
+                       data-sitekey="6LdzRpwpAAAAAEbBgp7NB3HpRJ-gznvh9FdboBzf"></div>
+                </div>
+              </div>
+              <div class="row justify-content-center">
+                <div class="text-center col-md-6">
+                  <button type="submit" class="btn btn-primary w-100 mt-5">Sign Up</button>
+                </div>
               </div>
             </form>
-            <p class="text-center mt-3">Already have an account?</p>
-            <a href="{% url 'login' %}" class="btn btn-primary mx-auto d-block">Log In</a>
+            <div class="row justify-content-center">
+              <div class="col-md-3 text-center">
+                <p class="text-center mt-3">Already have an account?</p>
+                <a href="{% url 'login' %}" class="btn bg-green text-light">Log In</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -77,7 +77,7 @@ INSTALLED_APPS = [
     "ckeditor_uploader",
     "autoslug",
     "mathfilters",
-    "django.contrib.sitemaps"
+    "django.contrib.sitemaps",
 ]
 
 MIDDLEWARE = [
@@ -196,3 +196,6 @@ LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "/member-resources/"
 
 AUTH_USER_MODEL = "free_pages.CustomUser"  # new
+
+RECAPTHCA_SITE_KEY = "6LdzRpwpAAAAAEbBgp7NB3HpRJ-gznvh9FdboBzf"
+RECAPTCHA_SECRET_KEY = os.getenv('RECAPTCHA_SECRET_KEY')

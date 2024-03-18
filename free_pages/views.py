@@ -204,12 +204,22 @@ def list_memberships(request):
         {"memberships": memberships, "prices": prices, "benefits": benefits},
     )
 
-
+import requests
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy("memberships")
     template_name = "registration/signup.html"
+    secret_key = settings.RECAPTHCA_SECRET_KEY
 
+    # def verify_recaptcha(response_token, secret_key):
+    # """Verify reCAPTCHA response with Google's reCAPTCHA API."""
+    # url = 'https://www.google.com/recaptcha/api/siteverify'
+    # payload = {'secret': secret_key, 'response': response_token}
+    # response = requests.post(url, data=payload)
+    # result = response.json()
+    # return result.get('success', False)
+
+    # @require_POST
     def form_valid(self, form):
         response = super().form_valid(form)
         login(self.request, self.object)

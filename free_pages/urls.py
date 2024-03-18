@@ -37,5 +37,7 @@ urlpatterns = [
     path("success", FormSuccessView.as_view(), name="form_success"),
     path("about", AboutView.as_view(), name="about"),
     path("contact-info/", ContactInfoView.as_view(), name="contact_info"),
+    path("contact/", ContactFormView.as_view(), name="contact"),
+
 
 ]

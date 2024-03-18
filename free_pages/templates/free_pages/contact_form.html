@@ -8,10 +8,37 @@
     <link rel="stylesheet" href="{% static 'home.css' %}">
 {% endblock css_files %}
 {% block title %}
-    Cleaning Services
+    Contact
 {% endblock title %}
 {% block content %}
-    {% include "free_pages/includes/header.html" with page_title='Cleaning Services' page_description='We take pride in our cleaning. Get in touch for a quote!' %}
+    {% include "free_pages/includes/header.html" with page_title='Contact Us' page_description='We take pride in our cleaning. Get in touch for a quote!' %}
+    <div class="container-fluid bg-green">
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-6 col-lg-3 d-flex bg-dark text-light my-4 mx-4 text-center justify-content-center">
+            <div class="align-self-stretch box p-4 ">
+              <i class="bi bi-telephone fs-1"></i>
+    
+              <h3 class="mb-4">Phone Number</h3>
+              <p><a href="tel://1234567920">+ 61 451 055 683</a></p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3 d-flex bg-dark text-light my-4 text-center justify-content-center">
+            <div class="align-self-stretch box p-4 text-center">
+              <div class="icon d-flex align-items-center justify-content-center">
+                <span class="icon-paper-plane"></span>
+              </div>
+              <i class="bi bi-envelope fs-1"></i>
+    
+              <h3 class="mb-4">Email Address</h3>
+              <p><a href="mailto:info@yoursite.com">hello@holistichincher.com</a></p>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    
     <div class="container-fluid bg-green">
         <div class="row p-3 justify-content-cetner">
             <div class="col-md-6 p-2 mx-auto">
