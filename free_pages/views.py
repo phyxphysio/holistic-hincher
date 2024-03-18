@@ -18,6 +18,7 @@ from django.contrib.auth.views import PasswordChangeView
 from .decorators import member_required, login_required
 from .forms import ContactForm, FeedbackForm, CustomUserCreationForm
 from .models import MainCategory, Post, SubCategory, CustomUser, MembershipBenefits
+import requests
 
 DOMAIN = settings.DOMAIN
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -33,11 +34,14 @@ def home(request):
 class PasswordChangeSuccessView(TemplateView):
     template_name = "password_change/success.html"
 
+
 class OfferingsView(TemplateView):
-    template_name = 'free_pages/offerings.html'
+    template_name = "free_pages/offerings.html"
+
 
 class ContactInfoView(TemplateView):
-    template_name = 'free_pages/contact_info.html'
+    template_name = "free_pages/contact_info.html"
+
 
 class ChangePasswordView(PasswordChangeView):
     template_name = "password_change/change_password.html"
@@ -204,27 +208,33 @@ def list_memberships(request):
         {"memberships": memberships, "prices": prices, "benefits": benefits},
     )
 
-import requests
+
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy("memberships")
     template_name = "registration/signup.html"
-    secret_key = settings.RECAPTHCA_SECRET_KEY
 
-    # def verify_recaptcha(response_token, secret_key):
-    # """Verify reCAPTCHA response with Google's reCAPTCHA API."""
-    # url = 'https://www.google.com/recaptcha/api/siteverify'
-    # payload = {'secret': secret_key, 'response': response_token}
-    # response = requests.post(url, data=payload)
-    # result = response.json()
-    # return result.get('success', False)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['site_key'] = settings.RECAPTCHA_SITE_KEY
+        return context
+    def verify_recaptcha(self, response_token):
+        secret_key = settings.RECAPTCHA_SECRET_KEY
+        url = "https://www.google.com/recaptcha/api/siteverify"
+        payload = {"secret": secret_key, "response": response_token}
+        response = requests.post(url, data=payload)
+        result = response.json()
+        return result.get("success", False)
 
-    # @require_POST
     def form_valid(self, form):
+        recaptcha_response = self.request.POST.get('g-recaptcha-response')
+        if not self.verify_recaptcha(recaptcha_response):
+            form.add_error(None, "Invalid reCAPTCHA. Please try again.") 
+            return self.form_invalid(form)  
+        
         response = super().form_valid(form)
         login(self.request, self.object)
         return response
-
 
 class ContactFormView(FormView):
     form_class = ContactForm

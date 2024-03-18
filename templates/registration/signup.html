@@ -26,6 +26,7 @@
               <div class="alert alert-danger">
                 <strong>Error:</strong> There were some problems with your
                 submission.
+                {% for error in form.errors %}{{error}}{% endfor %}
               </div>
             {% endif %}
             <form method="post" class="mt-4">
@@ -44,7 +45,7 @@
               <div class="row justify-content-center align-items-center">
                 <div class="col-md-6 text-center d-flex justify-content-center mt-4">
                   <div class="g-recaptcha"
-                       data-sitekey="6LdzRpwpAAAAAEbBgp7NB3HpRJ-gznvh9FdboBzf"></div>
+                       data-sitekey="{{ site_key }}"></div>
                 </div>
               </div>
               <div class="row justify-content-center">
@@ -53,6 +54,7 @@
                 </div>
               </div>
             </form>
+            <h1></h1>
             <div class="row justify-content-center">
               <div class="col-md-3 text-center">
                 <p class="text-center mt-3">Already have an account?</p>

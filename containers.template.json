@@ -1,31 +1,33 @@
 {
-    "web": {
-      "image": "$IMAGE_WEB",
-      "ports": {
-        "8000" : "HTTP"
-      },
-      "environment": {
-        "DB_HOST": "$DB_HOST",
-        "DB_DATABASE": "$DB_DATABASE",
-        "DB_USERNAME": "$DB_USERNAME",
-        "DB_PASSWORD": "$DB_PASSWORD",
-        "SECRET_KEY": "$SECRET_KEY",
-        "DOMAIN": "$DOMAIN",
-        "EMAIL_HOST": "$EMAIL_HOST",
-        "EMAIL_PORT": "$EMAIL_PORT",
-        "EMAIL_HOST_USER": "$EMAIL_HOST_USER",
-        "EMAIL_HOST_PASSWORD": "$EMAIL_HOST_PASSWORD",
-        "STRIPE_PUBLIC_KEY": "$STRIPE_PUBLIC_KEY",
-        "STRIPE_SECRET_KEY": "$STRIPE_SECRET_KEY",
-        "DEVELOPMENT": "$DEVELOPMENT",
-        "DB_BACKEND": "$DB_BACKEND",
-        "DB_NAME": "$DB_NAME",
-        "DB_USER": "$DB_USER",
-        "DB_PORTS": "$DB_PORTS",
-        "HOST_IP": "$HOST_IP",
-        "EMAIL_RECIPIENT": "$EMAIL_RECIPIENT",
-        "STRIPE_WEBHOOK_SECRET": "$STRIPE_WEBHOOK_SECRET",
-        "EMAIL_RECIPIENT_2": "$EMAIL_RECIPIENT_2"
-      }
+  "web": {
+    "image": "$IMAGE_WEB",
+    "ports": {
+      "8000": "HTTP"
+    },
+    "environment": {
+      "DB_HOST": "$DB_HOST",
+      "DB_DATABASE": "$DB_DATABASE",
+      "DB_USERNAME": "$DB_USERNAME",
+      "DB_PASSWORD": "$DB_PASSWORD",
+      "SECRET_KEY": "$SECRET_KEY",
+      "DOMAIN": "$DOMAIN",
+      "EMAIL_HOST": "$EMAIL_HOST",
+      "EMAIL_PORT": "$EMAIL_PORT",
+      "EMAIL_HOST_USER": "$EMAIL_HOST_USER",
+      "EMAIL_HOST_PASSWORD": "$EMAIL_HOST_PASSWORD",
+      "STRIPE_PUBLIC_KEY": "$STRIPE_PUBLIC_KEY",
+      "STRIPE_SECRET_KEY": "$STRIPE_SECRET_KEY",
+      "DEVELOPMENT": "$DEVELOPMENT",
+      "DB_BACKEND": "$DB_BACKEND",
+      "DB_NAME": "$DB_NAME",
+      "DB_USER": "$DB_USER",
+      "DB_PORTS": "$DB_PORTS",
+      "HOST_IP": "$HOST_IP",
+      "EMAIL_RECIPIENT": "$EMAIL_RECIPIENT",
+      "STRIPE_WEBHOOK_SECRET": "$STRIPE_WEBHOOK_SECRET",
+      "EMAIL_RECIPIENT_2": "$EMAIL_RECIPIENT_2",
+      "RECAPTCHA_SITE_KEY": "$RECAPTCHA_SITE_KEY",
+      "RECAPTCHA_SECRET_KEY": "$RECAPTCHA_SECRET_KEY"
     }
   }
+}

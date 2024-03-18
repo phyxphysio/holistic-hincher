@@ -33,6 +33,9 @@ env:
   EMAIL_RECIPIENT: ${{ secrets.EMAIL_RECIPIENT }}
   EMAIL_RECIPIENT_2: ${{ secrets.EMAIL_RECIPIENT_2 }}
   HOST_IP: ${{ secrets.HOST_IP }}
+  RECAPTCHA_SECRET_KEY: ${{ secrets.RECAPTCHA_SECRET_KEY}}
+  RECAPTCHA_SITE_KEY: ${{ secrets.RECAPTCHA_SITE_KEY}}
+
 
 jobs:
 

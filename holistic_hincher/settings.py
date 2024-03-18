@@ -60,7 +60,12 @@ DB_PORTS = os.getenv('DB_PORTS','')
 HOST_IP = os.getenv('HOST_IP')
 ALLOWED_HOSTS = ['172.26.21.143', '172.26.26.15', HOST_IP, 'https://container-service-1.n0von6o0mdks0.ap-southeast-2.cs.amazonlightsail.com', 'container-service-1.n0von6o0mdks0.ap-southeast-2.cs.amazonlightsail.com','holistichincher.com','www.holistichincher.com', '127.0.0.1']
 
-CSRF_TRUSTED_ORIGINS = ['https://container-service-1.n0von6o0mdks0.ap-southeast-2.cs.amazonlightsail.com', 'https://holistichincher.com', 'https://www.holistichincher.com']
+CSRF_TRUSTED_ORIGINS = [
+    "https://container-service-1.n0von6o0mdks0.ap-southeast-2.cs.amazonlightsail.com",
+    "https://holistichincher.com",
+    "https://www.holistichincher.com",
+    "http://127.0.0.1:8000/",
+]
 
 
 # Application definition
@@ -197,5 +202,5 @@ LOGIN_REDIRECT_URL = "/member-resources/"
 
 AUTH_USER_MODEL = "free_pages.CustomUser"  # new
 
-RECAPTHCA_SITE_KEY = "6LdzRpwpAAAAAEbBgp7NB3HpRJ-gznvh9FdboBzf"
+RECAPTCHA_SITE_KEY = os.getenv('RECAPTCHA_SITE_KEY')
 RECAPTCHA_SECRET_KEY = os.getenv('RECAPTCHA_SECRET_KEY')
