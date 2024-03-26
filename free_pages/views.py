@@ -216,8 +216,9 @@ class SignUpView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['site_key'] = settings.RECAPTCHA_SITE_KEY
+        context["site_key"] = settings.RECAPTCHA_SITE_KEY
         return context
+
     def verify_recaptcha(self, response_token):
         secret_key = settings.RECAPTCHA_SECRET_KEY
         url = "https://www.google.com/recaptcha/api/siteverify"
@@ -227,26 +228,32 @@ class SignUpView(CreateView):
         return result.get("success", False)
 
     def form_valid(self, form):
-        recaptcha_response = self.request.POST.get('g-recaptcha-response')
+        recaptcha_response = self.request.POST.get("g-recaptcha-response")
         if not self.verify_recaptcha(recaptcha_response):
-            form.add_error(None, "Invalid reCAPTCHA. Please try again.") 
-            return self.form_invalid(form)  
-        
+            form.add_error(None, "Invalid reCAPTCHA. Please try again.")
+            return self.form_invalid(form)
+
         response = super().form_valid(form)
         login(self.request, self.object)
         return response
+
 
 class ContactFormView(FormView):
     form_class = ContactForm
     template_name = "free_pages/contact_form.html"
     success_url = reverse_lazy("form_success")
 
+    def verify_recaptcha(self, response_token):
+        secret_key = settings.RECAPTCHA_SECRET_KEY
+        url = "https://www.google.com/recaptcha/api/siteverify"
+        payload = {"secret": secret_key, "response": response_token}
+        response = requests.post(url, data=payload)
+        result = response.json()
+        return result.get("success", False)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        try:
-            post = Post.objects.get(title="Cleaning Services")
-        except Post.DoesNotExist:
-            post = None
+        context["site_key"] = settings.RECAPTCHA_SITE_KEY
 
         if self.request.method == "POST":
             form = self.form_class(self.request.POST)
@@ -263,14 +270,15 @@ class ContactFormView(FormView):
             if i + 1 < len(fields)
         ]
 
-        context["post"] = post
         context["index_pairs"] = index_pairs
 
         return context
 
     def form_valid(self, form):
-        # form.add_error('email', 'This is a global form error.')
-        # form.add_error('field_name', 'This is a field-specific error.')
+        recaptcha_response = self.request.POST.get("g-recaptcha-response")
+        if not self.verify_recaptcha(recaptcha_response):
+            form.add_error(None, "Invalid reCAPTCHA. Please try again.")
+            return self.form_invalid(form)
 
         cleaned_data = form.cleaned_data
 
@@ -329,7 +337,7 @@ def compose_message(cleaned_data):
     return message
 
 
-class FeedbacktFormView(FormView):
+class FeedbackFormView(FormView):
     form_class = FeedbackForm
     template_name = "free_pages/feedback_form.html"
     success_url = reverse_lazy("form_success")
@@ -339,9 +347,24 @@ class FeedbacktFormView(FormView):
         if self.request.method == "POST":
             form = self.form_class(self.request.POST)
             context["form"] = form
+        context["site_key"] = settings.RECAPTCHA_SITE_KEY
         return context
+    
+    def verify_recaptcha(self, response_token):
+        secret_key = settings.RECAPTCHA_SECRET_KEY
+        url = "https://www.google.com/recaptcha/api/siteverify"
+        payload = {"secret": secret_key, "response": response_token}
+        response = requests.post(url, data=payload)
+        result = response.json()
+        return result.get("success", False)
 
     def form_valid(self, form):
+        recaptcha_response = self.request.POST.get("g-recaptcha-response")
+        if not self.verify_recaptcha(recaptcha_response):
+            form.add_error(None, "Invalid reCAPTCHA. Please try again.")
+            return self.form_invalid(form)
+
+        
         name = form.cleaned_data["name"]
         email = form.cleaned_data["email"]
         cleaned_data = form.cleaned_data

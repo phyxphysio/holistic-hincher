@@ -37,6 +37,11 @@
                                 </div>
                             {% endif %}
                         {% endfor %}
+                        <div class="row">
+                            <div class="col-md-6 text-center d-flex my-4">
+                                <div class="g-recaptcha" data-sitekey="{{ site_key }}"></div>
+                            </div>
+                        </div>
                         <button class="btn bg-green text-light btn-lg" type="submit">Send Feedback</button>
                         <div class="spinner-border p-2" role="status" id="loadingSpinner">
                             <span class="visually-hidden">Sending...</span>
@@ -46,11 +51,8 @@
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     </script>
-
     <script>
             $(document).ready(function() {
                 // Function to update the visibility of 'feedback' field and other fields

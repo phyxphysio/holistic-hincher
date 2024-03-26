@@ -14,81 +14,87 @@
     {% include "free_pages/includes/header.html" with page_title='Contact Us' page_description='We take pride in our cleaning. Get in touch for a quote!' %}
     <div class="container-fluid bg-green">
         <div class="row d-flex justify-content-center">
-          <div class="col-md-6 col-lg-3 d-flex bg-dark text-light my-4 mx-4 text-center justify-content-center">
-            <div class="align-self-stretch box p-4 ">
-              <i class="bi bi-telephone fs-1"></i>
-    
-              <h3 class="mb-4">Phone Number</h3>
-              <p><a href="tel://1234567920">+ 61 451 055 683</a></p>
+            <div class="col-md-6 col-lg-3 d-flex bg-dark text-light my-4 mx-4 text-center justify-content-center">
+                <div class="align-self-stretch box p-4 ">
+                    <i class="bi bi-telephone fs-1"></i>
+                    <h3 class="mb-4">Phone Number</h3>
+                    <p>
+                        <a href="tel://1234567920">+ 61 451 055 683</a>
+                    </p>
+                </div>
             </div>
-          </div>
-          <div class="col-md-6 col-lg-3 d-flex bg-dark text-light my-4 text-center justify-content-center">
-            <div class="align-self-stretch box p-4 text-center">
-              <div class="icon d-flex align-items-center justify-content-center">
-                <span class="icon-paper-plane"></span>
-              </div>
-              <i class="bi bi-envelope fs-1"></i>
-    
-              <h3 class="mb-4">Email Address</h3>
-              <p><a href="mailto:info@yoursite.com">hello@holistichincher.com</a></p>
-            </div>
-          </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    
-    <div class="container-fluid bg-green">
-        <div class="row p-3 justify-content-cetner">
-            <div class="col-md-6 p-2 mx-auto">
-                <div class="card bg-darkgreen text-light rounded-5">
-                    <div class="card-body mx-auto">
-                        {% if form.errors %}
-                            <div class="alert alert-danger">
-                                <strong>Error:</strong> There were some problems with your submission.
-                                {% for error in form.errors %}
-                                    <ul class="center-bullets">
-                                        <li>{{ error }}</li>
-                                    </ul>
-                                {% endfor %}
-                            </div>
-                        {% endif %}
-                        <form method="post" novalidate>
-                            {% csrf_token %}
-                            {% for pair in index_pairs %}
-                                <div class="row">
-                                    {% for field in pair %}
-                                        <div class="col">
-                                            <p>{{ field.label_tag }}</p>
-                                            <p>{{ field }}</p>
-                                        </div>
-                                        {% if field.errors %}
-                                            <div class="text-warning">
-                                                {% for error in field.errors %}{{ error }}{% endfor %}
-                                            </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                            {% endfor %}
-                            <button id="submit-button"
-                                    class="btn text-light btn-lg bg-green"
-                                    type="submit">Send Enquiry</button>
-                            <div class="spinner-border p-2" role="status" id="loadingSpinner">
-                                <span class="visually-hidden">Sending...</span>
-                            </div>
-                        </form>
+            <div class="col-md-6 col-lg-3 d-flex bg-dark text-light my-4 text-center justify-content-center">
+                <div class="align-self-stretch box p-4 text-center">
+                    <div class="icon d-flex align-items-center justify-content-center">
+                        <span class="icon-paper-plane"></span>
                     </div>
+                    <i class="bi bi-envelope fs-1"></i>
+                    <h3 class="mb-4">Email Address</h3>
+                    <p>
+                        <a href="mailto:info@yoursite.com">hello@holistichincher.com</a>
+                    </p>
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous">
-    </script>
-
-    <script>
+</div>
+</section>
+<div class="container-fluid bg-green">
+    <div class="row p-3 justify-content-cetner">
+        <div class="col-md-6 p-2 mx-auto">
+            <div class="card bg-darkgreen text-light rounded-5">
+                <div class="card-body mx-auto">
+                    {% if form.errors %}
+                        <div class="alert alert-danger">
+                            <strong>Error:</strong> There were some problems with your submission.
+                            {% for error in form.errors %}
+                                <ul class="center-bullets">
+                                    <li>{{ error }}</li>
+                                </ul>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        {% for pair in index_pairs %}
+                            <div class="row">
+                                {% for field in pair %}
+                                    <div class="col">
+                                        <p>{{ field.label_tag }}</p>
+                                        <p>{{ field }}</p>
+                                    </div>
+                                    {% if field.errors %}
+                                        <div class="text-warning">
+                                            {% for error in field.errors %}{{ error }}{% endfor %}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-md-6 text-center d-flex justify-content-center mt-4">
+                                <div class="g-recaptcha" data-sitekey="{{ site_key }}"></div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center align-items-center my-4">
+                            <div class="col-md-6 text-center">
+                                <button id="submit-button"
+                                        class="btn text-light btn-lg bg-green"
+                                        type="submit">Send Enquiry</button>
+                                <div class="spinner-border p-2" role="status" id="loadingSpinner">
+                                    <span class="visually-hidden">Sending...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+</script>
+<script>
         $('#loadingSpinner').hide();
 
         $('form').submit(function(event) {
@@ -97,5 +103,5 @@
 
 
 
-    </script>
+</script>
 {% endblock content %}
