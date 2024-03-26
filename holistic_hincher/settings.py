@@ -92,7 +92,6 @@ INSTALLED_APPS = [
     "autoslug",
     "mathfilters",
     "django.contrib.sitemaps",
-    "storages",
 ]
 
 MIDDLEWARE = [
