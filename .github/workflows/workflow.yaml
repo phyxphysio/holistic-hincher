@@ -35,6 +35,7 @@ env:
   HOST_IP: ${{ secrets.HOST_IP }}
   RECAPTCHA_SECRET_KEY: ${{ secrets.RECAPTCHA_SECRET_KEY}}
   RECAPTCHA_SITE_KEY: ${{ secrets.RECAPTCHA_SITE_KEY}}
+  USE_S3: ${{ secrets.USE_S3 }}
 
 
 jobs:
