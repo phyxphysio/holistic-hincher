@@ -40,43 +40,46 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
   AWS_STORAGE_BUCKET_NAME: ${{ secrets.AWS_STORAGE_BUCKET_NAME }}
 
-
-
 jobs:
-
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: install dependencies
+        run: pip install --upgrade pip && pip install ruff django-pytest && pip install -r requirements.txt
+
+      - name: Lint and Test
+        run: ruff check . && pytest
+
       - name: Build Docker Image - Web
         run: docker build -t web .
-        
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
-          
+
       - name: Install AWS Lightsail
         run: |
           curl "https://s3.us-west-2.amazonaws.com/lightsailctl/latest/linux-amd64/lightsailctl" -o "lightsailctl"
           sudo mv "lightsailctl" "/usr/local/bin/lightsailctl"
           sudo chmod +x /usr/local/bin/lightsailctl
 
-      - name: Push Docker Image - Web 
+      - name: Push Docker Image - Web
         run: |
           aws lightsail push-container-image \
             --service-name ${{ env.SERVICE_NAME }} \
             --label web \
             --image web:latest
-      
+
       - name: Get Docker Image Version - Web
-        run: > 
+        run: >
           echo "IMAGE_WEB=$(aws lightsail get-container-images --service-name ${{ env.SERVICE_NAME }} | jq -r '.containerImages | map(select(.image | contains ("web") )) | .[0].image')" >> $GITHUB_ENV
-      
+
       - name: Generate containers.json file
         run: |
           cat containers.template.json | envsubst > containers.json

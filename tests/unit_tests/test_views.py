@@ -1,7 +1,6 @@
 import pytest
 from django.urls import reverse
-from free_pages.forms import ContactForm, FeedbackForm
-from django.core import mail
+from free_pages.forms import FeedbackForm
 
 
 def test_home_view(client):

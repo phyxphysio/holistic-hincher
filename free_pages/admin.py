@@ -1,6 +1,5 @@
 from django.contrib import admin
 from .models import MainCategory, SubCategory, Post
-from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import CustomUserCreationForm, CustomUserChangeForm
