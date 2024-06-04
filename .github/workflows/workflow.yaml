@@ -48,7 +48,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: install dependencies
-        run: pip install --upgrade pip && pip install requirements.txt && pip install requirements-CI.txt
+        run: pip install --upgrade pip && pip install -r requirements.txt && pip install -r requirements-CI.txt
 
       - name: Lint and run unit tests
         run: ruff check . && pytest 
