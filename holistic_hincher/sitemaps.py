@@ -16,7 +16,6 @@ class StaticViewSitemap(sitemaps.Sitemap):
             "feedback",
             "member_resources",
             "login",
-            "logout",
             "change_password",
             "password_reset",
             "signup",

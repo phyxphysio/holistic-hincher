@@ -1,0 +1,4 @@
+ruff
+pytest
+lxml
+beautifulsoup4

@@ -47,11 +47,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: install ruff
-        run: pip install --upgrade pip && pip install ruff
+      - name: install dependencies
+        run: pip install --upgrade pip && pip install requirements.txt && pip install requirements-CI.txt
 
-      - name: Lint
-        run: ruff check . 
+      - name: Lint and run unit tests
+        run: ruff check . && pytest 
 
       - name: Build Docker Image - Web
         run: docker build -t web .
@@ -91,3 +91,12 @@ jobs:
             --service-name ${{ env.SERVICE_NAME }} \
             --containers file://containers.json \
             --public-endpoint file://endpoints.json
+      - name: Wait for Deployment
+        uses: jakejarvis/wait-action@master
+        with:
+          time: "10m"
+
+      - name: Run Integration Tests
+        run: |
+          python tests/integration_tests/test_status_codes.py
+
