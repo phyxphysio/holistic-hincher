@@ -11,7 +11,7 @@ click==8.1.7
 colorama==0.4.6
 cssbeautifier==1.15.1
 dill==0.3.8
-Django==5.0.6
+Django==5.0.7
 django-autoslug==1.9.9
 django-ckeditor==6.7.1
 django-cors-headers==4.3.1
